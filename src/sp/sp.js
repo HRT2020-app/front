@@ -11,12 +11,9 @@ export default class SP extends Component {
 
   constructor(props) {
     super(props);
-    // 変数名: 初期値
-    // todos: 登録済のtodoリスト、name: テキストボックスの値
   }
   
-  // HETMLをどう描画するか
-  // BrowserRouterで登録したurlに飛ぶときはLink
+  // HTMLをどう描画するか
   render() {
     return (<div> 
       <p>SP</p>

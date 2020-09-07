@@ -13,8 +13,7 @@ export default class PC extends Component {
     super(props);
   }
   
-  // HETMLをどう描画するか
-  // BrowserRouterで登録したurlに飛ぶときはLink
+  // HTMLをどう描画するか
   render() {
     return (<div> 
       <p>PC</p>

@@ -1,6 +1,7 @@
 # HRT2020-app front
 
-(npmよりyarnがいいとか、この)
+簡単な説明です  
+(npmよりyarnがいいとか、あまり細かいことは考えてないので悪しからずww)
 
 ## 動かす
 
@@ -15,6 +16,7 @@ PC版 → http://localhost:3000, http://localhost:3000/pc
 SP版 → http://localhost:3000/sp                   
 
 ### 参考までに（伊藤の実行環境）
+
 node.js (12.18.3)  
 react (16.13.1)  
 react-scripts (3.4.3)  
@@ -25,7 +27,9 @@ react-router-dom (5.2.0)
 
 基本的にはPC担当はpc/内で、スマホ担当はsp/内で作業してください  
 その中であれば好きにファイルなどを追加していってください  
-  
+(別途加えたいところがあれば、随時声かけてください)  
+
+<pre>
 front/  
 　├ src/  
     ├ apis/  
@@ -36,7 +40,25 @@ front/
     │   └ sp.js [スマホ版javascript]  
     ├ App.js  
        :  
+</pre>
 
+
+### pc.js, sp.js
+書き方は上手くまとめられないので、「reactの書き方」など各自調べてもらいたいです  
+とりあえず、render()内にhtml形式で書けば何かしらは表示されます  
+
+### fetchData.js
+細かいところは後で変えるかもしれませんが、とりあえずこれで
+引数やらは、コードを見れば分かると思います  
+現状では実際にサーバとやり取りせずに仮の値が返るようになっています  
+
+| 関数名 |  |
+----|---- 
+| fetchGetList | 予約一覧取得 |
+| fetchApply | 新しく予約する |
+| fetchDelete | 削除する |
+| fetchGetNumList | 予約人数の一覧だけ取得 |
+| fetchGetSummary | （※現状放置）エクセルデータをダウンロード？ |
 
 # ↓ 基からあったREADME
 
