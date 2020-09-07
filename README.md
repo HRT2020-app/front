@@ -1,3 +1,46 @@
+# HRT2020-app front
+
+(npmよりyarnがいいとか、この)
+
+## 動かす
+
+1. コマンドプロンプト/ターミナル立ち上げ
+2. cd front
+3. (node.js, react, react-scripts, react-dom, react-router-dom のインストール)
+    Node.js → https://nodejs.org/ja/
+    他      → npm install [  ]
+5. npm start
+
+PC版 → http://localhost:3000, http://localhost:3000/pc 
+SP版 → http://localhost:3000/sp                   
+
+### 参考までに（伊藤の実行環境）
+node.js (12.18.3)
+react (16.13.1)
+react-scripts (3.4.3)
+react-dom (16.13.1)
+react-router-dom (5.2.0)
+
+## code
+
+基本的にはPC担当はpc/内で、スマホ担当はsp/内で作業してください
+その中であれば好きにファイルなどを追加していってください
+
+front/
+　├ src/
+    ├ apis/
+    │   └ fetchData.js [サーバとのデータのやり取り]
+    ├ pc/
+    │   └ pc.js [PC版javascript] 
+    ├ sp/
+    │   └ sp.js [スマホ版javascript]
+    ├ App.js
+       :
+
+
+# ↓ 基からあったREADME
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
