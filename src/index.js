@@ -4,6 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// Add bootstrap
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
+// Add our style
+import './style/index.css';
+
+
 ReactDOM.render(
   <App />,
   document.getElementById('root')
