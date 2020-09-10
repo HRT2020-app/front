@@ -6,10 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 // Add bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
 
 // Add our style
-import './style/index.css';
+import './pc/style/index.css';
 
 
 ReactDOM.render(
