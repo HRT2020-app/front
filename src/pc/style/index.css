@@ -1,0 +1,27 @@
+.PC {
+    width: 600px;
+}
+
+.InputBox {
+    background-color: #FFF;
+    padding: 20px 20px 10px 20px;
+    width: 600px;
+    margin: 30px auto;
+}
+
+.input-element {
+    margin:10px;
+}
+
+.Header{
+    margin: 30px;
+    text-align: center;
+}
+
+.Footer {
+    /* border-top: 1px solid #ddd; */
+    background-color: #F4FCE8;
+    margin: 0 -20px -10px -20px;
+    padding: 10px 20px;
+    width: 600px;
+}
