@@ -4,6 +4,7 @@ import {fetchGetList,fetchApply,fetchDelete,fetchGetNumList,fetchGetSummary} fro
 import InputBox from './components/InputBox';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import ShowList from './components/ShowList'
 // fetchGetList("2020-08-01","2020-08-07")
 // fetchApply({reservations:{id:10,name:"name1",in:"2020-08-24T10:00:00.000Z",out:"2020-08-24T19:30:00.000Z"}})
 // fetchDelete(0)
@@ -26,6 +27,9 @@ export default class PC extends Component {
         </div>
         <div className="InputBox">
           <InputBox/>
+        </div>
+        <div>
+          <ShowList/>
         </div>
         <div className="Footer">
           <Footer/>

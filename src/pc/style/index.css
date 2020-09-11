@@ -25,3 +25,8 @@
     padding: 10px 20px;
     width: 600px;
 }
+table.topcap caption{
+    caption-side: top;
+    text-align: center;
+    font-size: 20px;
+}
