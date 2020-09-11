@@ -42,7 +42,7 @@ export default class InputBox extends React.Component {
     render() {
         return (
             <div>
-                <form className="" handleSubmit={this.handleSubmit}>
+                <form className="" onSubmit={this.handleSubmit}>
                     <div className="row">
                         <input type="text" className="form-control col-md-5 input-element" placeholder="名前" onChange={this.handleNameChange} />
                     </div>
