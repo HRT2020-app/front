@@ -1,18 +1,27 @@
 import React from 'react';
 import {fetchApply} from "../../apis/fetchData"
 import update from 'immutability-helper'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import {registerLocale} from "react-datepicker"
+import ja from 'date-fns/locale/ja';
+
+registerLocale('ja', ja);
 
 export default class InputBox extends React.Component {
 
     constructor(props) {
         super(props);
+        const Today = new Date();
+        const today = Today.getFullYear() + '-' + Today.getMonth() + '-' + Today.getDate();
+
         this.state = {
             reservation: {
                 name: '',
-                date: '',
+                date: today,
                 in_room: '',
                 out_room: ''
-            }
+            },
         };
         this.handleInRoomChange = this.handleInRoomChange.bind(this);
         this.handleOutRoomChange = this.handleOutRoomChange.bind(this);
@@ -28,7 +37,8 @@ export default class InputBox extends React.Component {
         this.setState({ reservation: update(this.state.reservation, { out_room: { $set: e.target.value } }) });
     }
     handleDateChange(e) {
-        this.setState({ reservation: update(this.state.reservation, { date: { $set: e.target.value } }) });
+        let date = e.getFullYear() + '-' + e.getMonth() + '-' + e.getDate();
+        this.setState({ reservation: update(this.state.reservation, { date: { $set: date } }) });
     }
     handleNameChange(e) {
         this.setState({ reservation: update(this.state.reservation, { name: { $set: e.target.value } }) });
@@ -59,7 +69,13 @@ export default class InputBox extends React.Component {
                             <input type="text" className="form-control" placeholder="名前" onChange={this.handleNameChange} />
                         </div>
                         <div className="input-element">
-                            <input type="date" className="form-control" placeholder="日付" onChange={this.handleDateChange} />
+                            <DatePicker
+                                dateFormat="yyyy/MM/dd"
+                                className="form-control"
+                                locale='ja'
+                                onChange={this.handleDateChange}
+                                value={this.state.reservation.date}
+                            />
                         </div>
                         <div className="input-element">
                             <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} />
