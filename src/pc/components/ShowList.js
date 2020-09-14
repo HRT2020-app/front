@@ -1,93 +1,205 @@
 import React, { Component } from 'react';
 import {BrowserRouter,Route,Link} from "react-router-dom";
 import {fetchGetList,fetchApply,fetchDelete,fetchGetNumList,fetchGetSummary} from "../../apis/fetchData"
+import { render } from '@testing-library/react';
 
-export default function ShowList(props){
+class ShowList extends React.Component{
 
-    var r_end = 5;  // 行数
-    var c_end = 4;  // 列数
+    constructor(){
+        super();
 
-    const list = fetchGetList("2020-08-01","2020-08-07")
+        let nowday =Date.now();
+        let startday = new Date(nowday);
+        let endday = new Date(nowday);
+        let day = startday.getUTCDay();
+        let sub = day - 1;
+        if(sub<0){
+            sub=6;
+        }
+        startday.setDate(startday.getUTCDate()-sub);
+        endday.setDate(startday.getUTCDate()+4);
 
-    // return(
-    //     window.onload = function(){
-    //         var tableJs = document.createElement('table');
-    //                 tableJs.id = 'table_id2';
-    //                 <table class="table table-bordered topcap text-center table-hover">
-    //                     <caption>??/??-??/??</caption>
-    //                     for (var r = 2; r < list.length; r++) {
-    //                         var r000 = padLeft('0000', r);
-    //                         var trJs = document.createElement('tr');
-    //                         for (let c = 2; c < c_end; c++) {
-    //                             var c000 = padLeft('0000', c);
-    //                             var tdJs = document.createElement('td');
-    //                             tdJs.innerHTML = 'r=' + r000 + ':c=' + c000;
-    //                             trJs.appendChild(tdJs);
-    //                         }
-    //                         tableJs.appendChild(trJs);
-    //                     }
-    //                 </table>
-    //                 var bodyJs = document.body;
-    //                 bodyJs.appendChild(tableJs);
-    //     }
-    // );
+        this.startmonth = ('00'+(startday.getUTCMonth()+1)).slice(-2);
+        this.startdate = ('00'+startday.getUTCDate()).slice(-2);
+        let startdaystr= startday.getUTCFullYear()+"-"+this.startmonth+"-"+this.startdate;
+        
+        this.endmonth = ('00'+(endday.getUTCMonth()+1)).slice(-2);
+        this.enddate = ('00'+endday.getUTCDate()).slice(-2);
+        let enddaystr= endday.getUTCFullYear()+"-"+this.endmonth+"-"+this.enddate;
 
-    //for(var i=0; i<length; i++){
+        this.list_data = fetchGetList("2020-08-01","2020-08-07");
+        let list ={
+                id:"",
+                name:"",
+                mon: "",
+                tue:"",
+                wed:"",
+                thu:"",
+                fri:"",
+        };
+        const daydict = ["sun","mon","tue","wed","thu","fri"]
 
-        //let id[i] = fetchGetList("2020-08-01","2020-08-07")[i].id;
-        return (        
-                <table class="table table-bordered topcap text-center table-hover">
-                    <caption>??/??-??/??</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">name</th>
-                            <th scope="col">Mon</th>
-                            <th scope="col">Tue</th>
-                            <th scope="col">Wed</th>
-                            <th scope="col">Thu</th>
-                            <th scope="col">Fri</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">wada</th>
-                            <td></td>
-                            <td class="align-middle">10:00-12:00</td>
-                            <td></td>
-                            <td>18:00-20:00</td>
-                            <td></td>
-                            <td>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">ichino</th>
-                            <td>10:00-12:00</td>
-                            <td></td>
-                            <td>18:00-20:00</td>
-                            <td></td>
-                            <td>10:00-12:00</td>
-                            <td>
-                            <button type="submit" class="btn btn-primary">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        this.updatedlist = [];
+        let updateidlist =[]; 
+
+        this.list_data.map( (item) => {
+                
+            const tin = Date.parse(item.in);
+            const din = new Date(tin);
+            const wDay = din.getUTCDay();
+            const hour = din.getUTCHours();
+            const minutes =din.getUTCMinutes();            
+
+            let strin =  ('00'+minutes).slice(-2);
+            
+            const tout = Date.parse(item.out);
+            const dout = new Date(tout);
+            const hourout = dout.getUTCHours();
+            const minout =dout.getUTCMinutes();
+
+            let strout =  ('00'+minout).slice(-2);
+
+            if(updateidlist.includes(item.id)){
+                let listItem = this.updatedlist.find((user) =>{
+                    return (user.id === item.id)
+                });
+                console.log(listItem);
+                listItem[daydict[wDay]]=hour + ":"+ strin +"~"+hourout+":"+strout;
+            }
+            else{
+                
+                list = {
+                    id: item.id,
+                    name: item.name,
+                    mon: "           ",
+                    tue: "           ",
+                    wed: "           ",
+                    thu: "           ",
+                    fri: "           ",
+                };
+
+                list[daydict[wDay]]=hour + ":"+ strin+"~"+hourout+":"+strout;
+
+                this.updatedlist.push(list);
+                updateidlist.push(item.id);
+
+            }
+        })
+    }
+
+    render(){
+        
+        
+        return (      
+            <>
+            <div>      
+                <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
+                    <caption>{this.startmonth}/{this.startdate}-{this.endmonth}/{this.enddate}</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">name</th>
+                                <th scope="col">Mon</th>
+                                <th scope="col">Tue</th>
+                                <th scope="col">Wed</th>
+                                <th scope="col">Thu</th>
+                                <th scope="col">Fri</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        {this.updatedlist.map( (item) => {
+                                return(
+                                <>
+                        <tbody>
+                            <tr>
+                                
+                                <th scope="row">{item.name}</th>
+                                <td class="align-middle">{item.mon}</td>
+                                <td class="align-middle">{item.tue}</td>
+                                <td class="align-middle">{item.wed}</td>
+                                <td class="align-middle">{item.thu}</td>
+                                <td class="align-middle">{item.fri}</td>
+                                <td class="align-middle">
+                                    <button type="submit" class="btn btn-danger">削除</button>
+                                </td>
+                                
+                            </tr>
+                        </tbody></>
+                                ); 
+                                })}
+                    </table>
+            {/* {this.list_data.map( (item) => {
+                let date = Date.parse(item.in);
+                const dt = new Date(date);
+                // return (
+                // <li>{item.id}</li>
+                // );
+            })} */}
+            </div>
+            
+            </>
         );
-    //};
+    }
 }
 
-function padLeft(pad, str) {
-    if (typeof str === 'undefined')
-        return pad;
+export default ShowList;
 
-    return (pad + str).slice(-pad.length);
-}
-function padRight(pad, str) {
-    if (typeof str === 'undefined')
-        return pad;
+/* <div>
+            {(() => {
+            for(let i=0; i < list_data.length; i++){
+                return <li>{list_data[i].name}</li>
+            }
+            })()}
+            </div> */
+// class ShowList extends React.Component {
 
-    return (str + pad).substring(0, pad.length);
-}
+
+// export default ShowList;
+
+
+
+//     //for(var i=0; i<length; i++){
+
+//         //let id[i] = fetchGetList("2020-08-01","2020-08-07")[i].id;
+//         return (        
+//                 <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
+//                     <caption>??/??-??/??</caption>
+//                     <thead>
+//                         <tr>
+//                             <th scope="col">name</th>
+//                             <th scope="col">Mon</th>
+//                             <th scope="col">Tue</th>
+//                             <th scope="col">Wed</th>
+//                             <th scope="col">Thu</th>
+//                             <th scope="col">Fri</th>
+//                             <th></th>
+//                         </tr>
+//                     </thead>
+//                     <tbody>
+//                         <tr>
+//                             <th scope="row">wada</th>
+//                             <td class="align-middle"></td>
+//                             <td class="align-middle">10:00-12:00</td>
+//                             <td class="align-middle"></td>
+//                             <td class="align-middle">18:00-20:00</td>
+//                             <td class="align-middle"></td>
+//                             <td class="align-middle">
+//                                 <button type="submit" class="btn btn-danger">削除</button>
+//                             </td>
+//                         </tr>
+//                         <tr>
+//                             <th scope="row">ichino</th>
+//                             <td class="align-middle">10:00-12:00</td>
+//                             <td class="align-middle"></td>
+//                             <td class="align-middle">18:00-20:00</td>
+//                             <td class="align-middle"></td>
+//                             <td class="align-middle">10:00-12:00</td>
+//                             <td class="align-middle">
+//                                 <button type="submit" class="btn btn-danger">削除</button>
+//                             </td>
+//                         </tr>
+//                     </tbody>
+//                 </table>
+//         );
+//     //};
+// }
 
