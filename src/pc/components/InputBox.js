@@ -13,7 +13,8 @@ export default class InputBox extends React.Component {
     constructor(props) {
         super(props);
         const Today = new Date();
-        const today = Today.getFullYear() + '-' + Today.getMonth() + '-' + Today.getDate();
+        const month = Today.getMonth() + 1
+        const today = Today.getFullYear() + '-' + month + '-' + Today.getDate();
 
         this.state = {
             reservation: {
@@ -78,7 +79,8 @@ export default class InputBox extends React.Component {
         this.setState({ reservation: update(this.state.reservation, { out_room: { $set: out_room } }) });
     }
     handleDateChange(e) {
-        let date = e.getFullYear() + '-' + e.getMonth() + '-' + e.getDate();
+        const month = e.getMonth() + 1
+        let date = e.getFullYear() + '-' + month + '-' + e.getDate();
         this.setState({ reservation: update(this.state.reservation, { date: { $set: date } }) });
     }
     handleNameChange(e) {
