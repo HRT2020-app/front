@@ -30,11 +30,43 @@ export default class InputBox extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // TODO: validationをまとめる(別ファイル)
+    in_time_validation(in_time) {
+        let out_room = this.state.reservation.out_room
+        if(out_room !== '' && out_room <= in_time) {
+            window.alert("入室時間と退室時間を見直してください");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    out_time_validation(out_time) {
+        if(this.state.reservation.in_room >= out_time) {
+            window.alert("入室時間と退室時間を見直してください");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     handleInRoomChange(e) {
-        this.setState({ reservation: update(this.state.reservation, { in_room: { $set: e.target.value } }) });
+        // TODO: validation
+        let in_room = '';
+        if(this.in_time_validation(e.target.value)) {
+            in_room = e.target.value;
+        }
+        this.setState({ reservation: update(this.state.reservation, { in_room: { $set: in_room } }) });
     }
     handleOutRoomChange(e) {
-        this.setState({ reservation: update(this.state.reservation, { out_room: { $set: e.target.value } }) });
+        // TODO: validation
+        let out_room = '';
+        if(this.out_time_validation(e.target.value)) {
+            out_room = e.target.value;
+        }
+        this.setState({ reservation: update(this.state.reservation, { out_room: { $set: out_room } }) });
     }
     handleDateChange(e) {
         let date = e.getFullYear() + '-' + e.getMonth() + '-' + e.getDate();
@@ -78,10 +110,10 @@ export default class InputBox extends React.Component {
                             />
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} />
+                            <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} value={this.state.reservation.in_room} />
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} />
+                            <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} value={this.state.reservation.out_room} />
                         </div>
                         <div className="input-element">
                             <button type="submit"className="form-control btn btn-primary">送信</button>
