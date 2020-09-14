@@ -30,7 +30,7 @@ export default class InputBox extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // TODO: validationをまとめる(別ファイル)
+    // TODO: validationをまとめる(別ファイル?)
     in_time_validation(in_time) {
         let out_room = this.state.reservation.out_room
         if(out_room !== '' && out_room <= in_time) {
@@ -45,6 +45,15 @@ export default class InputBox extends React.Component {
     out_time_validation(out_time) {
         if(this.state.reservation.in_room >= out_time) {
             window.alert("入室時間と退室時間を見直してください");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    submit_validation() {
+        if(this.state.reservation.name === '' || this.state.reservation.in_room === '' || this.state.reservation.out_room === '') {
             return false;
         }
         else {
@@ -78,17 +87,24 @@ export default class InputBox extends React.Component {
     handleSubmit(e) {
         // {name, in_room, out_room}の形に直してsubmit
         // TODO: この形にするならimmutability-helper使う必要ない
-        let reservation = {reservation: {name: '', in_room: '', out_room: ''}};
-        let name = this.state.reservation.name
-        let in_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.in_room).toISOString();
-        let out_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.out_room).toISOString();
 
-        reservation.reservation.name = name;
-        reservation.reservation.in_room = in_room;
-        reservation.reservation.out_room = out_room;
+        if(this.submit_validation()) {
+            let reservation = {reservation: {name: '', in_room: '', out_room: ''}};
+            let name = this.state.reservation.name;
+            let in_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.in_room).toISOString();
+            let out_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.out_room).toISOString();
 
-        let result = fetchApply(JSON.stringify(reservation));
-        window.alert(result)
+            reservation.reservation.name = name;
+            reservation.reservation.in_room = in_room;
+            reservation.reservation.out_room = out_room;
+
+            let result = fetchApply(JSON.stringify(reservation));
+            window.alert(result);
+        }
+        else {
+            window.alert("ERROR\n入力を見直してください");
+        }
+
     }
 
 
