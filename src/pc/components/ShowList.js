@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter,Route,Link} from "react-router-dom";
 import {fetchGetList,fetchApply,fetchDelete,fetchGetNumList,fetchGetSummary} from "../../apis/fetchData"
 import { render } from '@testing-library/react';
+import ShowItem from "./ShowItem";
 
 class ShowList extends React.Component{
 
@@ -21,11 +22,21 @@ class ShowList extends React.Component{
 
         this.startmonth = ('00'+(startday.getUTCMonth()+1)).slice(-2);
         this.startdate = ('00'+startday.getUTCDate()).slice(-2);
-        let startdaystr= startday.getUTCFullYear()+"-"+this.startmonth+"-"+this.startdate;
+        this.startdaystr= startday.getUTCFullYear()+"-"+this.startmonth+"-"+this.startdate;
         
         this.endmonth = ('00'+(endday.getUTCMonth()+1)).slice(-2);
         this.enddate = ('00'+endday.getUTCDate()).slice(-2);
-        let enddaystr= endday.getUTCFullYear()+"-"+this.endmonth+"-"+this.enddate;
+        this.enddaystr= endday.getUTCFullYear()+"-"+this.endmonth+"-"+this.enddate;
+        
+        this.state={
+            updatedlist: [],
+            startmonth: this.startmonth,
+            startdate: this.startdate,
+            endmonth: this.endmonth,
+            enddate: this.enddate,
+        };
+
+        
 
         this.list_data = fetchGetList("2020-08-01","2020-08-07");
         let list ={
@@ -39,7 +50,6 @@ class ShowList extends React.Component{
         };
         const daydict = ["sun","mon","tue","wed","thu","fri"]
 
-        this.updatedlist = [];
         let updateidlist =[]; 
 
         this.list_data.map( (item) => {
@@ -60,14 +70,13 @@ class ShowList extends React.Component{
             let strout =  ('00'+minout).slice(-2);
 
             if(updateidlist.includes(item.id)){
-                let listItem = this.updatedlist.find((user) =>{
+                let listItem = this.state.updatedlist.find((user) =>{
                     return (user.id === item.id)
                 });
                 console.log(listItem);
                 listItem[daydict[wDay]]=hour + ":"+ strin +"~"+hourout+":"+strout;
             }
-            else{
-                
+            else{  
                 list = {
                     id: item.id,
                     name: item.name,
@@ -80,21 +89,18 @@ class ShowList extends React.Component{
 
                 list[daydict[wDay]]=hour + ":"+ strin+"~"+hourout+":"+strout;
 
-                this.updatedlist.push(list);
+                this.state.updatedlist.push(list);
                 updateidlist.push(item.id);
-
             }
         })
     }
 
     render(){
-        
-        
         return (      
             <>
             <div>      
                 <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
-                    <caption>{this.startmonth}/{this.startdate}-{this.endmonth}/{this.enddate}</caption>
+                    <caption>{this.state.startmonth}/{this.state.startdate}~{this.state.endmonth}/{this.state.enddate}</caption>
                         <thead>
                             <tr>
                                 <th scope="col">name</th>
@@ -106,36 +112,9 @@ class ShowList extends React.Component{
                                 <th></th>
                             </tr>
                         </thead>
-                        {this.updatedlist.map( (item) => {
-                                return(
-                                <>
-                        <tbody>
-                            <tr>
-                                
-                                <th scope="row">{item.name}</th>
-                                <td class="align-middle">{item.mon}</td>
-                                <td class="align-middle">{item.tue}</td>
-                                <td class="align-middle">{item.wed}</td>
-                                <td class="align-middle">{item.thu}</td>
-                                <td class="align-middle">{item.fri}</td>
-                                <td class="align-middle">
-                                    <button type="submit" class="btn btn-danger">削除</button>
-                                </td>
-                                
-                            </tr>
-                        </tbody></>
-                                ); 
-                                })}
+                        {this.state.updatedlist.map( (item) => <ShowItem item={item}/>)}
                     </table>
-            {/* {this.list_data.map( (item) => {
-                let date = Date.parse(item.in);
-                const dt = new Date(date);
-                // return (
-                // <li>{item.id}</li>
-                // );
-            })} */}
             </div>
-            
             </>
         );
     }
@@ -143,63 +122,5 @@ class ShowList extends React.Component{
 
 export default ShowList;
 
-/* <div>
-            {(() => {
-            for(let i=0; i < list_data.length; i++){
-                return <li>{list_data[i].name}</li>
-            }
-            })()}
-            </div> */
-// class ShowList extends React.Component {
 
-
-// export default ShowList;
-
-
-
-//     //for(var i=0; i<length; i++){
-
-//         //let id[i] = fetchGetList("2020-08-01","2020-08-07")[i].id;
-//         return (        
-//                 <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
-//                     <caption>??/??-??/??</caption>
-//                     <thead>
-//                         <tr>
-//                             <th scope="col">name</th>
-//                             <th scope="col">Mon</th>
-//                             <th scope="col">Tue</th>
-//                             <th scope="col">Wed</th>
-//                             <th scope="col">Thu</th>
-//                             <th scope="col">Fri</th>
-//                             <th></th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         <tr>
-//                             <th scope="row">wada</th>
-//                             <td class="align-middle"></td>
-//                             <td class="align-middle">10:00-12:00</td>
-//                             <td class="align-middle"></td>
-//                             <td class="align-middle">18:00-20:00</td>
-//                             <td class="align-middle"></td>
-//                             <td class="align-middle">
-//                                 <button type="submit" class="btn btn-danger">削除</button>
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <th scope="row">ichino</th>
-//                             <td class="align-middle">10:00-12:00</td>
-//                             <td class="align-middle"></td>
-//                             <td class="align-middle">18:00-20:00</td>
-//                             <td class="align-middle"></td>
-//                             <td class="align-middle">10:00-12:00</td>
-//                             <td class="align-middle">
-//                                 <button type="submit" class="btn btn-danger">削除</button>
-//                             </td>
-//                         </tr>
-//                     </tbody>
-//                 </table>
-//         );
-//     //};
-// }
 
