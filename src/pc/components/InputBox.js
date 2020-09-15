@@ -6,23 +6,23 @@ import "react-datepicker/dist/react-datepicker.css"
 import {registerLocale} from "react-datepicker"
 import ja from 'date-fns/locale/ja';
 
+
 registerLocale('ja', ja);
 
 export default class InputBox extends React.Component {
 
     constructor(props) {
-        super(props);
+        super();
         const Today = new Date();
+        // getMonth()は0月-11月
         const month = Today.getMonth() + 1
         const today = Today.getFullYear() + '-' + month + '-' + Today.getDate();
 
         this.state = {
-            reservation: {
-                name: '',
-                date: today,
-                in_room: '',
-                out_room: ''
-            },
+            name: '',
+            date: today,
+            in_room: '',
+            out_room: '',
         };
         this.handleInRoomChange = this.handleInRoomChange.bind(this);
         this.handleOutRoomChange = this.handleOutRoomChange.bind(this);
@@ -33,7 +33,7 @@ export default class InputBox extends React.Component {
 
     // TODO: validationをまとめる(別ファイル?)
     in_time_validation(in_time) {
-        let out_room = this.state.reservation.out_room
+        let out_room = this.state.out_room
         if(out_room !== '' && out_room <= in_time) {
             window.alert("入室時間と退室時間を見直してください");
             return false;
@@ -44,7 +44,7 @@ export default class InputBox extends React.Component {
     }
 
     out_time_validation(out_time) {
-        if(this.state.reservation.in_room >= out_time) {
+        if(this.state.in_room >= out_time) {
             window.alert("入室時間と退室時間を見直してください");
             return false;
         }
@@ -54,7 +54,7 @@ export default class InputBox extends React.Component {
     }
 
     submit_validation() {
-        if(this.state.reservation.name === '' || this.state.reservation.in_room === '' || this.state.reservation.out_room === '') {
+        if(this.state.name === '' || this.state.in_room === '' || this.state.out_room === '') {
             return false;
         }
         else {
@@ -63,44 +63,40 @@ export default class InputBox extends React.Component {
     }
 
     handleInRoomChange(e) {
-        // TODO: validation
         let in_room = '';
         if(this.in_time_validation(e.target.value)) {
             in_room = e.target.value;
         }
-        this.setState({ reservation: update(this.state.reservation, { in_room: { $set: in_room } }) });
+        this.setState({in_room: in_room});
     }
     handleOutRoomChange(e) {
-        // TODO: validation
         let out_room = '';
         if(this.out_time_validation(e.target.value)) {
             out_room = e.target.value;
         }
-        this.setState({ reservation: update(this.state.reservation, { out_room: { $set: out_room } }) });
+        this.setState({out_room: out_room});
     }
     handleDateChange(e) {
         const month = e.getMonth() + 1
         let date = e.getFullYear() + '-' + month + '-' + e.getDate();
-        this.setState({ reservation: update(this.state.reservation, { date: { $set: date } }) });
+        this.setState({date: date});
     }
     handleNameChange(e) {
-        this.setState({ reservation: update(this.state.reservation, { name: { $set: e.target.value } }) });
+        this.setState({name: e.target.value});
     }
     handleSubmit(e) {
         // {name, in_room, out_room}の形に直してsubmit
-        // TODO: この形にするならimmutability-helper使う必要ない
-
         if(this.submit_validation()) {
-            let reservation = {reservation: {name: '', in_room: '', out_room: ''}};
-            let name = this.state.reservation.name;
-            let in_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.in_room).toISOString();
-            let out_room = new Date(this.state.reservation.date + ' ' + this.state.reservation.out_room).toISOString();
+            let applyForm = {reservation: {name: '', in_room: '', out_room: ''}};
+            let name = this.state.name;
+            let in_room = new Date(this.state.date + ' ' + this.state.in_room).toISOString();
+            let out_room = new Date(this.state.date + ' ' + this.state.out_room).toISOString();
 
-            reservation.reservation.name = name;
-            reservation.reservation.in_room = in_room;
-            reservation.reservation.out_room = out_room;
+            applyForm.reservation.name = name;
+            applyForm.reservation.in_room = in_room;
+            applyForm.reservation.out_room = out_room;
 
-            let result = fetchApply(JSON.stringify(reservation));
+            let result = fetchApply(JSON.stringify(applyForm));
             window.alert(result);
         }
         else {
@@ -124,14 +120,14 @@ export default class InputBox extends React.Component {
                                 className="form-control"
                                 locale='ja'
                                 onChange={this.handleDateChange}
-                                value={this.state.reservation.date}
+                                value={this.state.date}
                             />
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} value={this.state.reservation.in_room} />
+                            <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} value={this.state.in_room} />
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} value={this.state.reservation.out_room} />
+                            <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} value={this.state.out_room} />
                         </div>
                         <div className="input-element">
                             <button type="submit"className="form-control btn btn-primary">送信</button>
