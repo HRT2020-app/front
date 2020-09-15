@@ -5,12 +5,12 @@
 .InputBox {
     background-color: #FFF;
     padding: 20px 20px 10px 20px;
-    width: 600px;
+    width: 800px;
     margin: 30px auto;
 }
 
 .input-element {
-    margin:10px;
+    margin:5px;
 }
 
 .Header{
@@ -20,7 +20,7 @@
 
 .Footer {
     /* border-top: 1px solid #ddd; */
-    background-color: #F4FCE8;
+    /* background-color: #F4FCE8; */
     margin: 0 -20px -10px -20px;
     padding: 10px 20px;
     width: 600px;
