@@ -1,6 +1,5 @@
 import React from 'react';
 import {fetchApply} from "../../apis/fetchData"
-import update from 'immutability-helper'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import {registerLocale} from "react-datepicker"
