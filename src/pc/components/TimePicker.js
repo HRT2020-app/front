@@ -7,23 +7,17 @@ import '../style/TimePicker.css';
 export default class TimePicker extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            selected_time: "",
-        };
     }
 
     handleChange(e) {
-        this.setState({selected_time: e.value});
-        const {handleInRoomChange} = this.props;
+        const {handleInRoomChange, handleOutRoomChange} = this.props;
 
-        handleInRoomChange(e.value);
-    }
-
-    handleKeyUp(e) {
-        const {handleInRoomChange} = this.props;
-
-        handleInRoomChange(this.state.selected_time);
-        this.clear();
+        if(handleInRoomChange != undefined) {
+            handleInRoomChange(e.value);
+        }
+        if(handleOutRoomChange != undefined) {
+            handleOutRoomChange(e.value);
+        }
     }
 
     render() {
@@ -33,8 +27,7 @@ export default class TimePicker extends React.Component{
 
         return (
             <div className="form-control">
-                <Dropdown options={time} value={defaultOption} onKeyUp={this.handleKeyUp.bind(this)}
-            onChange={this.handleChange.bind(this)} placeholder="Select an option" />
+                <Dropdown options={time} value={defaultOption}　onChange={this.handleChange.bind(this)} />
             </div>
         );
     }

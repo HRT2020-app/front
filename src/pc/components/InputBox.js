@@ -70,10 +70,10 @@ export default class InputBox extends React.Component {
         }
         this.setState({in_room: in_room});
     }
-    handleOutRoomChange(e) {
+    handleOutRoomChange(time) {
         let out_room = '';
-        if(this.out_time_validation(e.target.value)) {
-            out_room = e.target.value;
+        if(this.out_time_validation(time)) {
+            out_room = time;
         }
         this.setState({out_room: out_room});
     }
@@ -128,7 +128,7 @@ export default class InputBox extends React.Component {
                             <Timepicker handleInRoomChange={this.handleInRoomChange} value={this.state.in_room}/>
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} value={this.state.out_room} />
+                            <Timepicker handleOutRoomChange={this.handleOutRoomChange} value={this.state.out_room}/>
                         </div>
                         <div className="input-element">
                             <button type="submit"className="form-control btn btn-primary">送信</button>
