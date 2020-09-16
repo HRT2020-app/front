@@ -13,28 +13,28 @@ import ShowList from './components/ShowList'
 
 export default class PC extends Component {
 
-  constructor(props) {
-    super(props);
-    this.title = '入室管理APP';
-  }
+    constructor(props) {
+        super(props);
+        this.title = '入室管理APP';
+    }
 
-  // HTMLをどう描画するか
-  render() {
-    return (
-      <div className="container PC">
-        <div className="Header">
-          <Header title={this.title} />
-        </div>
-        <div className="InputBox">
-          <InputBox/>
-        </div>
-        <div>
-          <ShowList/>
-        </div>
-        <div className="Footer">
-          <Footer/>
-        </div>
-      </div>
-    );
-  }
+    // HTMLをどう描画するか
+    render() {
+        return (
+            <div className="container PC">
+                <div className="Header">
+                    <Header title={this.title} />
+                </div>
+                <div className="InputBox">
+                    <InputBox/>
+                </div>
+                <div>
+                    <ShowList/>
+                </div>
+                <div className="Footer">
+                    <Footer/>
+                </div>
+            </div>
+        );
+    }
 }

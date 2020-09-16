@@ -5,6 +5,8 @@ import "react-datepicker/dist/react-datepicker.css"
 import {registerLocale} from "react-datepicker"
 import ja from 'date-fns/locale/ja';
 
+import Timepicker from './TimePicker'
+
 
 registerLocale('ja', ja);
 
@@ -61,10 +63,10 @@ export default class InputBox extends React.Component {
         }
     }
 
-    handleInRoomChange(e) {
+    handleInRoomChange(time) {
         let in_room = '';
-        if(this.in_time_validation(e.target.value)) {
-            in_room = e.target.value;
+        if(this.in_time_validation(time)) {
+            in_room = time;
         }
         this.setState({in_room: in_room});
     }
@@ -123,7 +125,7 @@ export default class InputBox extends React.Component {
                             />
                         </div>
                         <div className="input-element">
-                            <input type="time" className="form-control" placeholder="入室時刻" onChange={this.handleInRoomChange} value={this.state.in_room} />
+                            <Timepicker handleInRoomChange={this.handleInRoomChange} value={this.state.in_room}/>
                         </div>
                         <div className="input-element">
                             <input type="time" className="form-control" placeholder="退室時刻" onChange={this.handleOutRoomChange} value={this.state.out_room} />
