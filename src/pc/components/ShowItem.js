@@ -56,18 +56,24 @@ export default class ShowItem extends React.Component{
     handleDeleteDay(e) {
         if(this.state.mon.selected==true) {
             this.setState({ mon: update(this.state.mon, { time: { $set: "" } }) });
+            // TODO: どこでselectをfalseに変えるか
+            //this.setState({ mon: update(this.state.mon, { selected: { $set: false } }) });
         }
         if(this.state.tue.selected==true) {
             this.setState({ tue: update(this.state.tue, { time: { $set: "" } }) });
+            //this.setState({ tue: update(this.state.tue, { selected: { $set: false } }) });
         }
         if(this.state.wed.selected==true) {
             this.setState({ wed: update(this.state.wed, { time: { $set: "" } }) });
+            //this.setState({ wed: update(this.state.wed, { selected: { $set: false } }) });
         }
         if(this.state.thu.selected==true) {
             this.setState({ thu: update(this.state.thu, { time: { $set: "" } }) });
+            //this.setState({ thu: update(this.state.thu, { selected: { $set: false } }) });
         }
         if(this.state.fri.selected==true) {
             this.setState({ fri: update(this.state.fri, { time: { $set: "" } }) });
+            //this.setState({ fri: update(this.state.fri, { selected: { $set: false } }) });
         }
         // 選択モードに変更
         this.setState({mode: "選択", modeClass: "btn btn-primary", class: ""})
@@ -93,35 +99,50 @@ export default class ShowItem extends React.Component{
         if(this.state.mode == "削除") {
             switch(day) {
                 case "mon":
-                    return(
-                        <span>
-                            <input type="checkbox" onChange={this.handleChangeSelectMon}></input>
-                        </span>
-                    );
+                    if(this.state.mon.time != "") {
+                        return(
+                            <span>
+                                <input type="checkbox" onChange={this.handleChangeSelectMon}></input>
+                            </span>
+                        );
+                    }
+                    break;
                 case "tue":
-                    return(
-                        <span>
-                            <input type="checkbox" onChange={this.handleChangeSelectTue}></input>
-                        </span>
-                    );
+                    if(this.state.tue.time != "") {
+                        return(
+                            <span>
+                                <input type="checkbox" onChange={this.handleChangeSelectTue}></input>
+                            </span>
+                        );
+                    }
+                    break;
                 case "wed":
-                    return(
-                        <span>
-                            <input type="checkbox" onChange={this.handleChangeSelectWed}></input>
-                        </span>
-                    );
+                    if(this.state.wed.time != "") {
+                        return(
+                            <span>
+                                <input type="checkbox" onChange={this.handleChangeSelectWed}></input>
+                            </span>
+                        );
+                    }
+                    break;
                 case "thu":
-                    return(
-                        <span>
-                            <input type="checkbox" onChange={this.handleChangeSelectThu}></input>
-                        </span>
-                    );
+                    if(this.state.thu.time != "") {
+                        return(
+                            <span>
+                                <input type="checkbox" onChange={this.handleChangeSelectThu}></input>
+                            </span>
+                        );
+                    }
+                    break;
                 case "fri":
-                    return(
-                        <span>
-                            <input type="checkbox" onChange={this.handleChangeSelectFri}></input>
-                        </span>
-                    );
+                    if(this.state.fri.time != "") {
+                        return(
+                            <span>
+                                <input type="checkbox" onChange={this.handleChangeSelectFri}></input>
+                            </span>
+                        );
+                    }
+                    break;
             }
         }
     }
