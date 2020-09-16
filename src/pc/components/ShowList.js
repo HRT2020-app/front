@@ -16,11 +16,11 @@ class ShowList extends React.Component{
             enddate: enddate,
         };
 
-        const list_data = fetchGetList(startdaystr,enddaystr); 
+        const list_data = fetchGetList(startdaystr,enddaystr);
 
         //selectedWeekListにlist_dataを整形して追加
         this.setlist(list_data);
-        
+
     }
 
     //その週の月、金の日付を取得
@@ -33,34 +33,34 @@ class ShowList extends React.Component{
         if(sub<0){
             sub=6;
         }
-        startday.setDate(startday.getUTCDate()-sub);
-        endday.setDate(startday.getUTCDate()+4);
+        startday.setUTCDate(startday.getUTCDate()-sub);
+        endday.setUTCDate(startday.getUTCDate()+4);
 
         const startmonth = ('00'+(startday.getUTCMonth()+1)).slice(-2);
         const startdate = ('00'+startday.getUTCDate()).slice(-2);
         const startdaystr= startday.getUTCFullYear()+"-"+startmonth+"-"+startdate;
-        
+
         const endmonth = ('00'+(endday.getUTCMonth()+1)).slice(-2);
         const enddate = ('00'+endday.getUTCDate()).slice(-2);
         const enddaystr= endday.getUTCFullYear()+"-"+endmonth+"-"+enddate;
-        
+
         return {startmonth, startdate, endmonth, enddate, startdaystr, enddaystr};
     }
 
     setlist(list_data){
         let updateidlist =[];
-        const daydict = ["sun","mon","tue","wed","thu","fri"]  
-        
+        const daydict = ["sun","mon","tue","wed","thu","fri"]
+
         list_data.map( (item) => {
 
             const tin = Date.parse(item.in);
             const din = new Date(tin);
             const wDay = din.getUTCDay();
             const hour = din.getUTCHours();
-            const minutes =din.getUTCMinutes();            
+            const minutes =din.getUTCMinutes();
 
             let strin =  ('00'+minutes).slice(-2);
-            
+
             const tout = Date.parse(item.out);
             const dout = new Date(tout);
             const hourout = dout.getUTCHours();
@@ -75,7 +75,7 @@ class ShowList extends React.Component{
                 console.log(listItem);
                 listItem[daydict[wDay]]=hour + ":"+ strin +"~"+hourout+":"+strout;
             }
-            else{  
+            else{
                 let list = {
                     id: item.id,
                     name: item.name,
@@ -95,9 +95,9 @@ class ShowList extends React.Component{
     }
 
     render(){
-        return (      
+        return (
             <>
-            <div>      
+            <div>
                 <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
                     <caption>{this.state.startmonth}/{this.state.startdate}~{this.state.endmonth}/{this.state.enddate}</caption>
                         <thead>
@@ -111,7 +111,9 @@ class ShowList extends React.Component{
                                 <th></th>
                             </tr>
                         </thead>
-                        {this.state.selectedWeekList.map( (item) => <ShowItem item={item}/>)}
+                        <tbody>
+                            {this.state.selectedWeekList.map( (item) => <ShowItem item={item}/>)}
+                        </tbody>
                     </table>
             </div>
             </>
@@ -120,6 +122,3 @@ class ShowList extends React.Component{
 }
 
 export default ShowList;
-
-
-
