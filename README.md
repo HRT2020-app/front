@@ -60,7 +60,7 @@ front/
 | fetchGetNumList | 予約人数の一覧だけ取得 |
 | fetchGetSummary | （※現状放置）エクセルデータをダウンロード？ |
 
-###　追加でインストールしたパッケージ
+### 追加でインストールしたパッケージ
 
 "bootstrap": "^4.5.2",
 "immutability-helper": "^3.1.1",
