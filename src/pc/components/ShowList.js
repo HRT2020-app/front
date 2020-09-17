@@ -59,7 +59,7 @@ class ShowList extends React.Component{
 
     setlist(list_data){
         this.state.selectedWeekList=[];
-        let updateidlist =[];
+        let updateNameList =[];
         const daydict = ["sun","mon","tue","wed","thu","fri"]
 
         list_data.map( (item) => {

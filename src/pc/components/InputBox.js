@@ -7,7 +7,6 @@ import ja from 'date-fns/locale/ja';
 
 import Timepicker from './TimePicker'
 
-
 registerLocale('ja', ja);
 
 export default class InputBox extends React.Component {
@@ -32,10 +31,10 @@ export default class InputBox extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // TODO: validationをまとめる(別ファイル?)
+    // TODO: validationの挙動
     in_time_validation(in_time) {
         let out_room = this.state.out_room
-        if(out_room !== '' && out_room <= in_time) {
+        if(out_room != '' && out_room <= in_time || in_time.indexOf('-') != -1) {
             window.alert("入室時間と退室時間を見直してください");
             return false;
         }
@@ -45,7 +44,8 @@ export default class InputBox extends React.Component {
     }
 
     out_time_validation(out_time) {
-        if(this.state.in_room >= out_time) {
+        let in_room = this.state.in_room
+        if(in_room != '' && in_room >= out_time || out_time.indexOf('-') != -1) {
             window.alert("入室時間と退室時間を見直してください");
             return false;
         }
@@ -125,10 +125,10 @@ export default class InputBox extends React.Component {
                             />
                         </div>
                         <div className="input-element">
-                            <Timepicker handleInRoomChange={this.handleInRoomChange} value={this.state.in_room}/>
+                            <Timepicker handleInRoomChange={this.handleInRoomChange} inRoom={this.state.in_room}/>
                         </div>
                         <div className="input-element">
-                            <Timepicker handleOutRoomChange={this.handleOutRoomChange} value={this.state.out_room}/>
+                            <Timepicker handleOutRoomChange={this.handleOutRoomChange} outRoom={this.state.out_room}/>
                         </div>
                         <div className="input-element">
                             <button type="submit"className="form-control btn btn-primary">送信</button>
