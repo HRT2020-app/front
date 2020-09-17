@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import update from 'immutability-helper'
+import { fetchDelete } from "../../apis/fetchData"
 
 export default class ShowItem extends React.Component{
 
@@ -60,20 +61,28 @@ export default class ShowItem extends React.Component{
     }
 
     DeleteDay(e) {
+        // FIXME resultを使っていない
+        let result = { mon: "", tue: "", wed: "", thu: "", fri: "" };
+
         if(this.state.mon.selected==true) {
             this.setState({ mon: update(this.state.mon, { time: { $set: "" } }) });
+            result.mon = fetchDelete(this.state.mon.id);
         }
         if(this.state.tue.selected==true) {
             this.setState({ tue: update(this.state.tue, { time: { $set: "" } }) });
+            result.tue = fetchDelete(this.state.tue.id);
         }
         if(this.state.wed.selected==true) {
             this.setState({ wed: update(this.state.wed, { time: { $set: "" } }) });
+            result.wed = fetchDelete(this.state.wed.id);
         }
         if(this.state.thu.selected==true) {
             this.setState({ thu: update(this.state.thu, { time: { $set: "" } }) });
+            result.thu = fetchDelete(this.state.thu.id);
         }
         if(this.state.fri.selected==true) {
             this.setState({ fri: update(this.state.fri, { time: { $set: "" } }) });
+            result.fri = fetchDelete(this.state.fri.id);
         }
 
         this.SelectMode()
