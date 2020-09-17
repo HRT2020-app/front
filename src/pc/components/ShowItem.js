@@ -29,150 +29,126 @@ export default class ShowItem extends React.Component{
                 time: item.fri,
                 selected: false
             },
-            // FIXME: classとは？
-            class: "",
-            // FIXME: modeいるか？
-            mode: "選択",
-            // FIXME: btnは変えない
-            // TODO: classとかstateに持たせる必要
+            // selectされた行の色を変えるためのクラス
+            trClass: "",
+            mode: "Select",
             modeClass: "btn btn-primary"
         }
 
-        this.handleSelectDay = this.handleSelectDay.bind(this);
-        this.handleDeleteDay = this.handleDeleteDay.bind(this);
-        this.handleChangeSelectMon = this.handleChangeSelectMon.bind(this);
-        this.handleChangeSelectTue = this.handleChangeSelectTue.bind(this);
-        this.handleChangeSelectWed = this.handleChangeSelectWed.bind(this);
-        this.handleChangeSelectThu = this.handleChangeSelectThu.bind(this);
-        this.handleChangeSelectFri = this.handleChangeSelectFri.bind(this);
+        this.DeleteMode = this.DeleteMode.bind(this);
+        this.DeleteDay = this.DeleteDay.bind(this);
+        this.ChangeMonSelect = this.ChangeMonSelect.bind(this);
+        this.ChangeTueSelect = this.ChangeTueSelect.bind(this);
+        this.ChangeWedSelect = this.ChangeWedSelect.bind(this);
+        this.ChangeThuSelect = this.ChangeThuSelect.bind(this);
+        this.ChangeFriSelect = this.ChangeFriSelect.bind(this);
     }
 
-    handleSelectDay(e) {
-        if(this.state.mode="選択") {
-            this.setState({mode: "削除", modeClass: "btn btn-danger", class: "bg-warning"});
+    DeleteMode(e) {
+        // Deleteモードに変更
+        if(this.state.mode="Select") {
+            this.setState({mode: "Delete", modeClass: "btn btn-danger", trClass: "bg-warning"});
         }
     }
 
-    handleDeleteDay(e) {
+    SelectMode() {
+        this.setState({mode: "Select", modeClass: "btn btn-primary", trClass: ""})
+    }
+
+    DeleteDay(e) {
         if(this.state.mon.selected==true) {
             this.setState({ mon: update(this.state.mon, { time: { $set: "" } }) });
-            // TODO: どこでselectをfalseに変えるか
-            //this.setState({ mon: update(this.state.mon, { selected: { $set: false } }) });
         }
         if(this.state.tue.selected==true) {
             this.setState({ tue: update(this.state.tue, { time: { $set: "" } }) });
-            //this.setState({ tue: update(this.state.tue, { selected: { $set: false } }) });
         }
         if(this.state.wed.selected==true) {
             this.setState({ wed: update(this.state.wed, { time: { $set: "" } }) });
-            //this.setState({ wed: update(this.state.wed, { selected: { $set: false } }) });
         }
         if(this.state.thu.selected==true) {
             this.setState({ thu: update(this.state.thu, { time: { $set: "" } }) });
-            //this.setState({ thu: update(this.state.thu, { selected: { $set: false } }) });
         }
         if(this.state.fri.selected==true) {
             this.setState({ fri: update(this.state.fri, { time: { $set: "" } }) });
-            //this.setState({ fri: update(this.state.fri, { selected: { $set: false } }) });
         }
-        // 選択モードに変更
-        this.setState({mode: "選択", modeClass: "btn btn-primary", class: ""})
+
+        this.SelectMode()
     }
 
-    handleChangeSelectMon(e) {
-        this.setState({ mon: update(this.state.mon, { selected: { $set: true } }) });
+    ChangeMonSelect(e) {
+        const setState = !(this.state.mon.selected)
+        this.setState({ mon: update(this.state.mon, { selected: { $set: setState } }) });
     }
-    handleChangeSelectTue(e) {
-        this.setState({ tue: update(this.state.tue, { selected: { $set: true } }) });
+    ChangeTueSelect(e) {
+        const setState = !(this.state.tue.selected)
+        this.setState({ tue: update(this.state.tue, { selected: { $set: setState } }) });
     }
-    handleChangeSelectWed(e) {
-        this.setState({ wed: update(this.state.wed, { selected: { $set: true } }) });
+    ChangeWedSelect(e) {
+        const setState = !(this.state.wed.selected)
+        this.setState({ wed: update(this.state.wed, { selected: { $set: setState } }) });
     }
-    handleChangeSelectThu(e) {
-        this.setState({ thu: update(this.state.thu, { selected: { $set: true } }) });
+    ChangeThuSelect(e) {
+        const setState = !(this.state.thu.selected)
+        this.setState({ thu: update(this.state.thu, { selected: { $set: setState } }) });
     }
-    handleChangeSelectFri(e) {
-        this.setState({ fri: update(this.state.fri, { selected: { $set: true } }) });
+    ChangeFriSelect(e) {
+        const setState = !(this.state.fri.selected)
+        this.setState({ fri: update(this.state.fri, { selected: { $set: setState } }) });
     }
 
-    showCheckday(day) {
-        if(this.state.mode == "削除") {
+    showCheckBox(day) {
+        if(this.state.mode == "Delete") {
             switch(day) {
                 case "mon":
                     if(this.state.mon.time != "") {
-                        return(
-                            <span>
-                                <input type="checkbox" onChange={this.handleChangeSelectMon}></input>
-                            </span>
-                        );
+                        return(<span><input type="checkbox" onChange={this.ChangeMonSelect}></input></span>);
                     }
                     break;
                 case "tue":
                     if(this.state.tue.time != "") {
-                        return(
-                            <span>
-                                <input type="checkbox" onChange={this.handleChangeSelectTue}></input>
-                            </span>
-                        );
+                        return(<span><input type="checkbox" onChange={this.ChangeTueSelect}></input></span>);
                     }
                     break;
                 case "wed":
                     if(this.state.wed.time != "") {
-                        return(
-                            <span>
-                                <input type="checkbox" onChange={this.handleChangeSelectWed}></input>
-                            </span>
-                        );
+                        return(<span><input type="checkbox" onChange={this.ChangeWedSelect}></input></span>);
                     }
                     break;
                 case "thu":
                     if(this.state.thu.time != "") {
-                        return(
-                            <span>
-                                <input type="checkbox" onChange={this.handleChangeSelectThu}></input>
-                            </span>
-                        );
+                        return(<span><input type="checkbox" onChange={this.ChangeThuSelect}></input></span>);
                     }
                     break;
                 case "fri":
                     if(this.state.fri.time != "") {
-                        return(
-                            <span>
-                                <input type="checkbox" onChange={this.handleChangeSelectFri}></input>
-                            </span>
-                        );
+                        return(<span><input type="checkbox" onChange={this.ChangeFriSelect}></input></span>);
                     }
                     break;
             }
         }
     }
 
-    // FIXME: 名前
-    showButton() {
-        if(this.state.mode == "選択") {
-            return(
-                <button type="submit" className={this.state.modeClass} onClick={this.handleSelectDay}>{this.state.mode}</button>
-            );
+    showModeButton() {
+        if(this.state.mode == "Select") {
+            return(<button type="submit" className={this.state.modeClass} onClick={this.DeleteMode}>{this.state.mode}</button>);
         }
         else {
-            if(this.state.mode == "削除") {
-                return(
-                    <button type="submit"className={this.state.modeClass} onClick={this.handleDeleteDay}>{this.state.mode}</button>
-                );
+            if(this.state.mode == "Delete") {
+                return(<button type="submit"className={this.state.modeClass} onClick={this.DeleteDay}>{this.state.mode}</button>);
             }
         }
     }
 
     render(){
         return(
-            <tr className={this.state.class}>
+            <tr className={this.state.trClass}>
                 <td className="align-middle">{this.state.name}</td>
-                <td className="align-middle">{this.showCheckday("mon")}{this.state.mon.time}</td>
-                <td className="align-middle">{this.showCheckday("tue")}{this.state.tue.time}</td>
-                <td className="align-middle">{this.showCheckday("wed")}{this.state.wed.time}</td>
-                <td className="align-middle">{this.showCheckday("thu")}{this.state.thu.time}</td>
-                <td className="align-middle">{this.showCheckday("fri")}{this.state.fri.time}</td>
-                <td className="align-middle">{this.showButton()}</td>
+                <td className="align-middle">{this.showCheckBox("mon")}{this.state.mon.time}</td>
+                <td className="align-middle">{this.showCheckBox("tue")}{this.state.tue.time}</td>
+                <td className="align-middle">{this.showCheckBox("wed")}{this.state.wed.time}</td>
+                <td className="align-middle">{this.showCheckBox("thu")}{this.state.thu.time}</td>
+                <td className="align-middle">{this.showCheckBox("fri")}{this.state.fri.time}</td>
+                <td className="align-middle">{this.showModeButton()}</td>
             </tr>
         );
     }
