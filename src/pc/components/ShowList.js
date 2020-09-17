@@ -48,7 +48,8 @@ class ShowList extends React.Component{
     }
 
     setlist(list_data){
-        let updateidlist =[];
+        this.state.selectedWeekList = [];
+        let updateNameList =[];
         const daydict = ["sun","mon","tue","wed","thu","fri"]
 
         list_data.map( (item) => {
@@ -68,28 +69,44 @@ class ShowList extends React.Component{
 
             let strout =  ('00'+minout).slice(-2);
 
-            if(updateidlist.includes(item.id)){
+            if(updateNameList.includes(item.name)){
                 let listItem = this.state.selectedWeekList.find((user) =>{
-                    return (user.id === item.id)
+                    return (user.name === item.name)
                 });
-                console.log(listItem);
-                listItem[daydict[wDay]]=hour + ":"+ strin +"~"+hourout+":"+strout;
+
+                listItem[daydict[wDay]].id = item.id;
+                listItem[daydict[wDay]].time = hour + ":"+ strin +"~"+hourout+":"+strout;
             }
             else{
                 let list = {
-                    id: item.id,
                     name: item.name,
-                    mon: "",
-                    tue: "",
-                    wed: "",
-                    thu: "",
-                    fri: "",
+                    mon: {
+                        id: "",
+                        time: ""
+                    },
+                    tue: {
+                        id: "",
+                        time: ""
+                    },
+                    wed: {
+                        id: "",
+                        time: ""
+                    },
+                    thu: {
+                        id: "",
+                        time: ""
+                    },
+                    fri: {
+                        id: "",
+                        time: ""
+                    },
                 };
 
-                list[daydict[wDay]]=hour + ":"+ strin+"~"+hourout+":"+strout;
+                list[daydict[wDay]].id = item.id;
+                list[daydict[wDay]].time = hour + ":"+ strin+"~"+hourout+":"+strout;
 
                 this.state.selectedWeekList.push(list);
-                updateidlist.push(item.id);
+                updateNameList.push(item.name);
             }
         })
     }

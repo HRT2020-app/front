@@ -5,28 +5,32 @@ export default class ShowItem extends React.Component{
 
     constructor(props){
         super();
-        const item=props.item
-        this.state={
-            id: item.id,
+        const item = props.item
+        this.state = {
             name: item.name,
             mon: {
-                time: item.mon,
+                id: item.mon.id,
+                time: item.mon.time,
                 selected: false
             },
             tue: {
-                time: item.tue,
+                id: item.tue.id,
+                time: item.tue.time,
                 selected: false
             },
             wed: {
-                time: item.wed,
+                id: item.wed.id,
+                time: item.wed.time,
                 selected: false
             },
             thu: {
-                time: item.thu,
+                id: item.thu.id,
+                time: item.thu.time,
                 selected: false
             },
             fri: {
-                time: item.fri,
+                id: item.fri.id,
+                time: item.fri.time,
                 selected: false
             },
             // selectされた行の色を変えるためのクラス
