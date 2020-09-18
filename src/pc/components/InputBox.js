@@ -120,7 +120,7 @@ export default class InputBox extends React.Component {
                                             <label className="labelsize underline">name</label>
                                         </td>
                                         <td className="align-middle deleteline">
-                                            <div className="input-element">    
+                                            <div className="input-element">
                                                 <div>
                                                     <input type="text" className="form-control inputsize" onChange={this.handleNameChange} />
                                                 </div>
@@ -130,8 +130,8 @@ export default class InputBox extends React.Component {
                                     <tr>
                                         <td className="align-middle deleteline">
                                             <label className="labelsize underline">date</label>
-                                        </td>   
-                                        <td className="align-middle deleteline"> 
+                                        </td>
+                                        <td className="align-middle deleteline">
                                             <div className="input-element">
                                                 <div className="input-element">
                                                     <DatePicker
@@ -150,7 +150,7 @@ export default class InputBox extends React.Component {
                                             <label className="labelsize underline">in_room</label>
                                         </td>
                                         <td className="align-middle deleteline">
-                                            <div className="input-element">  
+                                            <div className="input-element">
                                                 <div className="input-element inputsize">
                                                     <Timepicker handleInRoomChange={this.handleInRoomChange} inRoom={this.state.in_room}/>
                                                 </div>
@@ -165,15 +165,15 @@ export default class InputBox extends React.Component {
                                             <div className="input-element form-group">
                                                     <div className="input-element inputsize">
                                                         <Timepicker handleOutRoomChange={this.handleOutRoomChange} outRoom={this.state.out_room}/>
-                                                    </div>    
+                                                    </div>
                                             </div>
-                                        </td>  
-                                    </tr> 
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div className="input-element boxsize button_wrapper">
-                            <button type="submit button"className="form-control btn btn-default btn-circle btn-color">Submit</button>
+                            <button type="submit button"className="form-control btn btn-circle btn-color">Submit</button>
                         </div>
                     </div>
                 </form>

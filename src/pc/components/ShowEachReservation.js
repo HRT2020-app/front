@@ -37,7 +37,7 @@ export default class ShowEachReservation extends React.Component{
             // selectされた行の色を変えるためのクラス
             trClass: "",
             mode: "Select",
-            modeClass: "btn btn-primary"
+            modeClass: "btn btn-color"
         }
 
         this.DeleteMode = this.DeleteMode.bind(this);
@@ -57,7 +57,7 @@ export default class ShowEachReservation extends React.Component{
     }
 
     SelectMode() {
-        this.setState({mode: "Select", modeClass: "btn btn-primary", trClass: ""})
+        this.setState({mode: "Select", modeClass: "btn btn-color", trClass: ""})
     }
 
     DeleteDay(e) {
