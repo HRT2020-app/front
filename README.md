@@ -60,15 +60,15 @@ front/
 | fetchGetNumList | 予約人数の一覧だけ取得 |
 | fetchGetSummary | （※現状放置）エクセルデータをダウンロード？ |
 
-###　追加でインストールしたパッケージ
+### 追加でインストールしたパッケージ
 
-"bootstrap": "^4.5.2",
-"immutability-helper": "^3.1.1",
-"jquery": "^3.5.1",
-"list": "^2.0.19",
-"peer": "^0.5.3",
-"popper": "^1.0.1",
-"react-datepicker": "^3.1.3",
+"bootstrap": "^4.5.2"
+"immutability-helper": "^3.1.1"
+"jquery": "^3.5.1"
+"list": "^2.0.19"
+"peer": "^0.5.3"
+"popper": "^1.0.1"
+"react-datepicker": "^3.1.3"
 "typescript": "^4.0.2"
 
 # ↓ 基からあったREADME
