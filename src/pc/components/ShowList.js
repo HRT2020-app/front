@@ -4,6 +4,7 @@ import ShowItem from "./ShowItem";
 import Footer from './Footer';
 import {Link} from "react-router-dom";
 import logo from "../style/Icon.png";
+import Dropdown from 'react-dropdown';
 
 class ShowList extends React.Component{
 
@@ -18,11 +19,13 @@ class ShowList extends React.Component{
             startdate: startdate,
             endmonth: endmonth,
             enddate: enddate,
+            getmonth: "",
         };
 
         this.startdayChangebefore = this.startdayChangebefore.bind(this);
         this.startdayChangeafter = this.startdayChangeafter.bind(this);
         this.download = this.download.bind(this);
+        this.handleMonthChange = this.handleMonthChange.bind(this);
 
         let getlist = {reservation: {start: startdaystr,end: enddaystr}};
         const list_data = fetchGetList(startdaystr,enddaystr);
@@ -59,6 +62,7 @@ class ShowList extends React.Component{
     }
 
     setlist(list_data){
+        // FIXME: setStateで変更したい
         this.state.selectedWeekList=[];
         let updateNameList =[];
         const daydict = ["sun","mon","tue","wed","thu","fri"]
@@ -197,12 +201,38 @@ class ShowList extends React.Component{
 
     download(){
 
-        let filemonth = this.state.startyear+"-"+this.state.startmonth;
-        fetchGetSummary(JSON.stringify(filemonth));
+        if(this.state.getmonth==""){
+            window.alert("Please select download month");
+        }else{
+            let filemonth = this.state.startyear+"-"+this.state.getmonth;
+            fetchGetSummary(JSON.stringify(filemonth));
+        }
+    }
 
+    handleMonthChange(e){
+
+        const monthSet = ['January','February','March','April','May','June','July','August','September','October','November','December']
+        let monthname = e.value;
+        let monthnum;
+        //if(monthname!=""){
+            monthnum=monthSet.indexOf(monthname)+1;
+            // FIXME: setStateで変えたいが変更ができない
+            this.state.getmonth=monthnum;
+            //this.setState({getmonth: monthnum});
+        //}
     }
 
     render(){
+        // FIXME: render内にconstが入っている 
+        const monthSet = ['January','February','March','April','May','June','July','August','September','October','November','December']
+        let monthname="--";
+        if(this.state.getmonth!=""){
+            monthname=monthSet[this.state.getmonth];
+        }
+        else if(this.state.getmonth==""){
+            monthname="--";
+        }
+
         return (
             <>
             <div>
@@ -231,6 +261,9 @@ class ShowList extends React.Component{
                 </table>
             </div>
             <div className="row">
+                <div className="form-control monthboxsize">
+                    <Dropdown options={monthSet} value={monthname} onChange={this.handleMonthChange} />
+                </div>
                 <button className="btn" onClick={this.download}>
                 Download &nbsp;<img src={logo} alt="Download"></img>
                 </button>
