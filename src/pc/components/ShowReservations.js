@@ -1,12 +1,10 @@
 import React from 'react';
-import {fetchGetList,fetchDelete,fetchGetSummary} from "../../apis/fetchData"
-import ShowItem from "./ShowItem";
-import Footer from './Footer';
-import {Link} from "react-router-dom";
+import {fetchGetList,fetchGetSummary} from "../../apis/fetchData"
+import ShowEachReservation from "./ShowEachReservation";
 import logo from "../style/Icon.png";
 import Dropdown from 'react-dropdown';
 
-class ShowList extends React.Component{
+export default class ShowReservations extends React.Component{
 
     constructor(){
         super();
@@ -223,7 +221,7 @@ class ShowList extends React.Component{
     }
 
     render(){
-        // FIXME: render内にconstが入っている 
+        // FIXME: render内にconstが入っている
         const monthSet = ['January','February','March','April','May','June','July','August','September','October','November','December']
         let monthname="--";
         if(this.state.getmonth!=""){
@@ -256,7 +254,7 @@ class ShowList extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.selectedWeekList.map( (item) => <ShowItem item={item}/>)}
+                        {this.state.selectedWeekList.map( (item) => <ShowEachReservation item={item}/>)}
                     </tbody>
                 </table>
             </div>
@@ -272,5 +270,3 @@ class ShowList extends React.Component{
         );
     }
 }
-
-export default ShowList;

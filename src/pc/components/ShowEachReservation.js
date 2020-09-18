@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import update from 'immutability-helper'
 import { fetchDelete } from "../../apis/fetchData"
 
-export default class ShowItem extends React.Component{
+export default class ShowEachReservation extends React.Component{
 
     constructor(props){
         super();
