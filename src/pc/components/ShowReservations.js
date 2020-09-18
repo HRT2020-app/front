@@ -200,7 +200,8 @@ export default class ShowReservations extends React.Component{
     download(){
 
         if(this.state.getmonth==""){
-            window.alert("Please select download month");
+            let filemonth = this.state.startyear+"-"+this.state.startmonth;
+            fetchGetSummary(JSON.stringify(filemonth));
         }else{
             let filemonth = this.state.startyear+"-"+this.state.getmonth;
             fetchGetSummary(JSON.stringify(filemonth));
@@ -228,7 +229,7 @@ export default class ShowReservations extends React.Component{
             monthname=monthSet[this.state.getmonth];
         }
         else if(this.state.getmonth==""){
-            monthname="--";
+            monthname=monthSet[this.state.startmonth-1];
         }
 
         return (
@@ -258,13 +259,14 @@ export default class ShowReservations extends React.Component{
                     </tbody>
                 </table>
             </div>
+            <br></br>
             <div className="row">
+                <button className="btn" onClick={this.download}>
+                    Download　<img src={logo} alt="Download"></img>
+                </button>
                 <div className="form-control monthboxsize">
                     <Dropdown options={monthSet} value={monthname} onChange={this.handleMonthChange} />
                 </div>
-                <button className="btn" onClick={this.download}>
-                Download &nbsp;<img src={logo} alt="Download"></img>
-                </button>
             </div>
             </>
         );

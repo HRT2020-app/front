@@ -1,5 +1,5 @@
 .PC {
-    width: 1000px;
+    width: auto;
 }
 
 .InputBox {
@@ -14,8 +14,8 @@
 }
 
 .Header{
-    margin: 30px;
-    text-align: center;
+    margin-top: 50px;
+    text-align: left;
 }
 
 .Footer {
@@ -109,6 +109,5 @@ element.style {
 }
 
 .monthboxsize{
-    margin: 15px;
     width: 128px;
 }

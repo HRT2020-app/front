@@ -15,7 +15,7 @@ export default class PC extends Component {
 
     constructor(props) {
         super(props);
-        this.title = '入室管理APP';
+        this.title = 'Nagao-Lab Schedule Manager';
     }
 
     // HTMLをどう描画するか
