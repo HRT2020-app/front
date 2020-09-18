@@ -112,26 +112,68 @@ export default class InputBox extends React.Component {
             <div>
                 <form className="" onSubmit={this.handleSubmit}>
                     <div className="row">
-                        <div className="input-element">
-                            <input type="text" className="form-control" placeholder="名前" onChange={this.handleNameChange} />
+                        <div>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <tr>
+                                        <td className="align-middle deleteline">
+                                            <label className="labelsize underline">name</label>
+                                        </td>
+                                        <td className="align-middle deleteline">
+                                            <div className="input-element">    
+                                                <div>
+                                                    <input type="text" className="form-control inputsize" onChange={this.handleNameChange} />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="align-middle deleteline">
+                                            <label className="labelsize underline">date</label>
+                                        </td>   
+                                        <td className="align-middle deleteline"> 
+                                            <div className="input-element">
+                                                <div className="input-element">
+                                                    <DatePicker
+                                                        dateFormat="yyyy/MM/dd"
+                                                        className="form-control inputsize"
+                                                        locale='ja'
+                                                        onChange={this.handleDateChange}
+                                                        value={this.state.date}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="align-middle deleteline">
+                                            <label className="labelsize underline">in_room</label>
+                                        </td>
+                                        <td className="align-middle deleteline">
+                                            <div className="input-element">  
+                                                <div className="input-element inputsize">
+                                                    <Timepicker handleInRoomChange={this.handleInRoomChange} inRoom={this.state.in_room}/>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="align-middle deleteline">
+                                            <label className="labelsize underline">out_room</label>
+                                        </td>
+                                        <td className="align-middle deleteline">
+                                            <div className="input-element form-group">
+                                                    <div className="input-element inputsize">
+                                                        <Timepicker handleOutRoomChange={this.handleOutRoomChange} outRoom={this.state.out_room}/>
+                                                    </div>    
+                                            </div>
+                                        </td>  
+                                    </tr> 
+                                </tbody>
+                            </table>
                         </div>
-                        <div className="input-element">
-                            <DatePicker
-                                dateFormat="yyyy/MM/dd"
-                                className="form-control"
-                                locale='ja'
-                                onChange={this.handleDateChange}
-                                value={this.state.date}
-                            />
-                        </div>
-                        <div className="input-element">
-                            <Timepicker handleInRoomChange={this.handleInRoomChange} inRoom={this.state.in_room}/>
-                        </div>
-                        <div className="input-element">
-                            <Timepicker handleOutRoomChange={this.handleOutRoomChange} outRoom={this.state.out_room}/>
-                        </div>
-                        <div className="input-element">
-                            <button type="submit"className="form-control btn btn-primary">送信</button>
+                        <div className="input-element boxsize button_wrapper">
+                            <button type="submit button"className="form-control btn btn-default btn-circle btn-color">Submit</button>
                         </div>
                     </div>
                 </form>
