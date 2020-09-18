@@ -3,6 +3,7 @@ import {fetchGetList,fetchDelete,fetchGetSummary} from "../../apis/fetchData"
 import ShowItem from "./ShowItem";
 import Footer from './Footer';
 import {Link} from "react-router-dom";
+import logo from "../style/Icon.png";
 
 class ShowList extends React.Component{
 
@@ -205,38 +206,36 @@ class ShowList extends React.Component{
         return (
             <>
             <div>
-                <table className="table table-bordered topcap text-center table-hover css_empty_cells_show">
-                    <caption>{this.state.startmonth}/{this.state.startdate}~{this.state.endmonth}/{this.state.enddate}</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col">name</th>
-                                <th scope="col">Mon</th>
-                                <th scope="col">Tue</th>
-                                <th scope="col">Wed</th>
-                                <th scope="col">Thu</th>
-                                <th scope="col">Fri</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.selectedWeekList.map( (item) => <ShowItem item={item}/>)}
-                        </tbody>
-                    </table>
+                <table className="table table-striped text-center table-hover">
+                    <thead>
+                        <tr>
+                            <span>
+                                <button className="btn btn-link arrow" onClick={this.startdayChangebefore}>
+                                    ◁
+                                </button>
+                                {this.state.startmonth}/{this.state.startdate}-{this.state.endmonth}/{this.state.enddate}
+                                <button className="btn btn-link arrow" onClick={this.startdayChangeafter}>
+                                    ▷
+                                </button>
+                            </span>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.selectedWeekList.map( (item) => <ShowItem item={item}/>)}
+                    </tbody>
+                </table>
             </div>
             <div className="row">
-                <button className="btn btn-link" onClick={this.startdayChangebefore}>
-                    前週
-                </button>
-                <button className="btn btn-link" onClick={this.startdayChangeafter}>
-                    次週
-                </button>
-                <button className="btn btn-link" onClick={this.download}>
-                    ダウンロード
+                <button className="btn" onClick={this.download}>
+                Download &nbsp;<img src={logo} alt="Download"></img>
                 </button>
             </div>
             </>
-
-
         );
     }
 }
