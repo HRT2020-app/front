@@ -1,146 +1,138 @@
-import React, { Component } from 'react';
-const server = `https://...`
+import React, { Component } from "react";
+//const server = "http://localhost:3000";
+const server = `http://hrt-apps-rails.herokuapp.com`;
 
-export const fetchGetList = (start,end) => {
-  return [
-    {id:10,name:"name1",in:"2020-08-24T10:00:00.000Z",out:"2020-08-24T19:30:00.000Z"},
-    {id:15,name:"name2",in:"2020-08-24T10:00:00.000Z",out:"2020-08-24T19:30:00.000Z"},
-  ]
-
-  let ret = ""
-
-  fetch(server+`/reservations/?start=${start}&?end=${end}`, {mode: 'cors'})
+export const fetchGetList = (start, end, setListFunc) => {
+  fetch(server + `/reservations?start=${start}&end=${end}`, {
+    mode: "cors",
+  })
     .then((response) => {
-      const json = response.json();
-      console.log(json);
-      return json;
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error("ロード失敗");
+      }
     })
     .then((myJson) => {
-        console.log(myJson.code)
-        if (myJson.code != 200){
-          console.log("ロード失敗");
-          ret = false;
-        } else {
-          ret = myJson.data.reservations;
-        }
+      console.log(myJson);
+      setListFunc(myJson.reservations);
+    })
+    .catch((e) => {
+      console.log(e);
     });
-  
-    return ret;
-}
+};
 
 export const fetchApply = (data) => {
-  return "Success"
-
   // const obj = {hello: "world"};
-  const method = "POST";
-  const body = JSON.stringify(data);
+  const method = "post";
+  const body = data;
   const headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    Accept: "application/json",
+    "Content-Type": "application/json",
   };
 
-  let ret = ""
-
-  fetch(server+`/reservations`, {method, headers, body})
+  fetch(server + `/reservations`, {
+    method: method,
+    headers: headers,
+    body: body,
+    mode: "cors",
+  })
     .then((response) => {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error("申請失敗");
+      }
     })
     .then((myJson) => {
-        console.log(myJson.code)
-        if (myJson.code != 200){
-          console.log("申請失敗");
-          ret = false;
-        } else {
-          console.log("申請成功");
-          ret = myJson.message;
-        }
+      console.log("申請成功");
+      window.alert(myJson.message);
+    })
+    .catch((e) => {
+      console.log(e);
     });
-  return ret;
-}
+};
 
 export const fetchDelete = (id) => {
-  return "Success"
-
   // const obj = {hello: "world"};
   const method = "DELETE";
-  const body = JSON.stringify({id:id});
-  const headers = {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  };
-  console.log(body)
-  let ret = ""
 
-  fetch(server+'/reservations', {method, headers, body})
+  fetch(server + `/reservations/${id}`, {
+    method: method,
+    mode: "cors",
+  })
     .then((response) => {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error("削除失敗");
+      }
     })
     .then((myJson) => {
-        console.log(myJson.code)
-        if (myJson.code != 200){
-          console.log("削除失敗");
-          ret = false;
-        } else {
-          console.log("削除成功");
-          ret = myJson.message;
-        }
+      console.log("削除成功");
+      window.alert(myJson.message);
+    })
+    .catch((e) => {
+      console.log(e);
     });
-  return ret;
 
-}
+  // 一応返してるけどここで結果を返すの無理味
+  return "";
+};
 
-export const fetchGetNumList = (start,end) => {
+export const fetchGetNumList = (start, end) => {
   return [
-    {start:"2020-08-24T10:00:00.000Z",number:1},
-    {start:"2020-08-24T11:00:00.000Z",number:2},
-    {start:"2020-08-24T12:00:00.000Z",number:3},
-  ]
-  
-  let ret = ""
+    { start: "2020-08-24T10:00:00.000Z", number: 1 },
+    { start: "2020-08-24T11:00:00.000Z", number: 2 },
+    { start: "2020-08-24T12:00:00.000Z", number: 3 },
+  ];
 
-  fetch(server+`/reservations/calender/?start=${start}&?end=${end}`, {mode: 'cors'})
+  let ret = "";
+
+  fetch(server + `/reservations/calender/?start=${start}&?end=${end}`, {
+    mode: "cors",
+  })
     .then((response) => {
       const json = response.json();
       console.log(json);
       return json;
     })
     .then((myJson) => {
-        console.log(myJson.code)
-        if (myJson.code != 200){
-          console.log("ロード失敗");
-          ret = false;
-        } else {
-          ret = myJson.data.reservations;
-        }
-    });
-  
-    return ret;
-
-}
-
-export const fetchGetSummary = (start,end) => {
-  // return ?
-  let ret = ""
-
-  fetch(server+`/reservations/summary/?start=${start}&?end=${end}`, {mode: 'cors'})
-    .then((response) => {
-      const json = response.json();
-      console.log(json);
-      return json;
-    })
-    .then((myJson) => {
-      console.log(myJson.code)
-      if (myJson.code != 200){
+      console.log(myJson.code);
+      if (myJson.code != 200) {
         console.log("ロード失敗");
         ret = false;
       } else {
-        // ?
-        ret = "成功？"
+        ret = myJson.data.reservations;
       }
     });
-  
-    return ret;
-  
-}
+
+  return ret;
+};
+
+export const fetchGetSummary = (munth) => {
+  // return ?
+  fetch(server + `/reservations/summary/?month=${munth}`, {
+    mode: "cors",
+  })
+    .then((response) => {
+      if (response.ok) {
+        const blob = response.blob();
+        console.log(blob);
+        return blob;
+      } else {
+        throw Error("ロード失敗");
+      }
+    })
+    .then((myBlob) => {
+      var url = window.URL.createObjectURL(myBlob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = "filename.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+};
 
 export default fetchGetList;
