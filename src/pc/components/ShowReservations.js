@@ -3,6 +3,7 @@ import { fetchGetList, fetchGetSummary } from "../../apis/fetchData";
 import ShowEachReservation from "./ShowEachReservation";
 import logo from "../style/Icon.png";
 import Dropdown from "react-dropdown";
+import { now } from "jquery";
 
 export default class ShowReservations extends React.Component {
   constructor() {
@@ -15,6 +16,7 @@ export default class ShowReservations extends React.Component {
       enddate,
       startdaystr,
       enddaystr,
+      today,
     } = this.initDate();
 
     this.state = {
@@ -25,6 +27,7 @@ export default class ShowReservations extends React.Component {
       endmonth: endmonth,
       enddate: enddate,
       getmonth: "",
+      today: today,
     };
 
     this.startdayChangebefore = this.startdayChangebefore.bind(this);
@@ -39,6 +42,7 @@ export default class ShowReservations extends React.Component {
   //その週の月、金の日付を取得
   initDate() {
     let nowday = Date.now();
+    let today = new Date(nowday);
     let startday = new Date(nowday);
     let endday = new Date(nowday);
     let startyear = startday.getUTCFullYear();
@@ -49,6 +53,11 @@ export default class ShowReservations extends React.Component {
     }
     startday.setUTCDate(startday.getUTCDate() - sub);
     endday.setUTCDate(startday.getUTCDate() + 4);
+
+    const todayMonth = ("00" + (today.getUTCMonth() + 1)).slice(-2);
+    const todayDate = String(today).split(' ')[2];
+
+    today = todayMonth + '/' + todayDate;
 
     const startmonth = ("00" + (startday.getUTCMonth() + 1)).slice(-2);
     const startdate = ("00" + startday.getUTCDate()).slice(-2);
@@ -67,6 +76,7 @@ export default class ShowReservations extends React.Component {
       enddate,
       startdaystr,
       enddaystr,
+      today,
     };
   }
 
@@ -223,6 +233,21 @@ export default class ShowReservations extends React.Component {
     }
   }
 
+  showDate(diffMonday) {
+    let color = "black";
+
+    let date = this.state.startmonth + '/' + (Number(this.state.startdate) + diffMonday);
+    if (date == this.state.today) {
+      color = "red"
+    }
+
+    return (
+      <div style={{color: color}}>
+        {date}
+      </div>
+    );
+  }
+
   handleMonthChange(e) {
     const monthSet = [
       "January",
@@ -291,11 +316,31 @@ export default class ShowReservations extends React.Component {
                     ▷
                   </button>
                 </th>
-                <th style={{width: 140 + 'px'}}>Mon</th>
-                <th style={{width: 140 + 'px'}}>Tue</th>
-                <th style={{width: 140 + 'px'}}>Wed</th>
-                <th style={{width: 140 + 'px'}}>Thu</th>
-                <th style={{width: 140 + 'px'}}>Fri</th>
+                <th style={{width: 140 + 'px'}}>
+                  Mon
+                  <br></br>
+                  {this.showDate(0)}
+                </th>
+                <th style={{width: 140 + 'px'}}>
+                  Tue
+                  <br></br>
+                  {this.showDate(1)}
+                </th>
+                <th style={{width: 140 + 'px'}}>
+                  Wed
+                  <br></br>
+                  {this.showDate(2)}
+                </th>
+                <th style={{width: 140 + 'px'}}>
+                  Thu
+                  <br></br>
+                  {this.showDate(3)}
+                </th>
+                <th style={{width: 140 + 'px'}}>
+                  Fri
+                  <br></br>
+                  {this.showDate(4)}
+                </th>
               </tr>
             </thead>
             <tbody>
