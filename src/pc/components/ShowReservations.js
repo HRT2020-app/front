@@ -173,15 +173,7 @@ export default class ShowReservations extends React.Component {
     const enddaystr =
       afterendinfo.getFullYear() + "-" + afterendmonth + "-" + afterenddate;
 
-    //this.setState({selectedWeekList : []});
-
-    //変更した日付に合わせて新しいリストを取得
-    let getlist = { reservation: { start: startdaystr, end: enddaystr } };
-    const list_data = fetchGetList(startdaystr, enddaystr);
-    //const list_data = fetchGetList(JSON.stringify(getlist));
-
-    //selectedWeekListにlist_dataを整形して追加
-    this.setlist(list_data);
+    fetchGetList(startdaystr, enddaystr, this.setlist);
   }
 
   startdayChangeafter() {
@@ -218,12 +210,7 @@ export default class ShowReservations extends React.Component {
     const enddaystr =
       afterendinfo.getFullYear() + "-" + afterendmonth + "-" + afterenddate;
 
-    //変更した日付に合わせて新しいリストを取得
-    let getlist = { reservation: { start: startdaystr, end: enddaystr } };
-    //const list_data = fetchGetList(JSON.stringify(getlist));
-    const list_data = fetchGetList(startdaystr, enddaystr);
-    //selectedWeekListにlist_dataを整形して追加
-    this.setlist(list_data);
+    fetchGetList(startdaystr, enddaystr, this.setlist);
   }
 
   download() {
@@ -257,8 +244,6 @@ export default class ShowReservations extends React.Component {
     monthnum = monthSet.indexOf(monthname) + 1;
     // FIXME: setStateで変えたいが変更ができない
     this.state.getmonth = monthnum;
-    //this.setState({getmonth: monthnum});
-    //}
   }
 
   render() {
@@ -290,7 +275,7 @@ export default class ShowReservations extends React.Component {
           <table className="table table-striped text-center table-hover">
             <thead>
               <tr>
-                <th style={{width: 260 + 'px'}}>
+                <th style={{width: 300 + 'px'}}>
                   <button
                     className="btn btn-link arrow"
                     onClick={this.startdayChangebefore}
@@ -306,11 +291,11 @@ export default class ShowReservations extends React.Component {
                     ▷
                   </button>
                 </th>
-                <th style={{width: 130 + 'px'}}>Mon</th>
-                <th style={{width: 130 + 'px'}}>Tue</th>
-                <th style={{width: 130 + 'px'}}>Wed</th>
-                <th style={{width: 130 + 'px'}}>Thu</th>
-                <th style={{width: 130 + 'px'}}>Fri</th>
+                <th style={{width: 140 + 'px'}}>Mon</th>
+                <th style={{width: 140 + 'px'}}>Tue</th>
+                <th style={{width: 140 + 'px'}}>Wed</th>
+                <th style={{width: 140 + 'px'}}>Thu</th>
+                <th style={{width: 140 + 'px'}}>Fri</th>
               </tr>
             </thead>
             <tbody>
