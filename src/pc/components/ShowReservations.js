@@ -290,7 +290,7 @@ export default class ShowReservations extends React.Component {
           <table className="table table-striped text-center table-hover">
             <thead>
               <tr>
-                <span>
+                <th style={{width: 260 + 'px'}}>
                   <button
                     className="btn btn-link arrow"
                     onClick={this.startdayChangebefore}
@@ -305,12 +305,12 @@ export default class ShowReservations extends React.Component {
                   >
                     ▷
                   </button>
-                </span>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
+                </th>
+                <th style={{width: 130 + 'px'}}>Mon</th>
+                <th style={{width: 130 + 'px'}}>Tue</th>
+                <th style={{width: 130 + 'px'}}>Wed</th>
+                <th style={{width: 130 + 'px'}}>Thu</th>
+                <th style={{width: 130 + 'px'}}>Fri</th>
               </tr>
             </thead>
             <tbody>
