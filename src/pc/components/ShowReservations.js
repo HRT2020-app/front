@@ -236,7 +236,16 @@ export default class ShowReservations extends React.Component {
   showDate(diffMonday) {
     let color = "black";
 
-    let date = this.state.startmonth + '/' + (Number(this.state.startdate) + diffMonday);
+    let beforedate = new Date(
+      this.state.startyear,
+      this.state.startmonth - 1,
+      this.state.startdate
+    );
+    let theday = new Date(beforedate); 
+    theday.setUTCDate(beforedate.getUTCDate() + diffMonday);
+
+    let date = (theday.getMonth() + 1) + '/' + theday.getDate();
+
     if (date == this.state.today) {
       color = "red"
     }
