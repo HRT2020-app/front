@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 // Add our style
 import './pc/style/index.css';
+import './sp/style/index.css';
 
 
 ReactDOM.render(

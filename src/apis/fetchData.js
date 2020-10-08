@@ -80,35 +80,27 @@ export const fetchDelete = (id) => {
   return "";
 };
 
-export const fetchGetNumList = (start, end) => {
-  return [
-    { start: "2020-08-24T10:00:00.000Z", number: 1 },
-    { start: "2020-08-24T11:00:00.000Z", number: 2 },
-    { start: "2020-08-24T12:00:00.000Z", number: 3 },
-  ];
-
-  let ret = "";
-
-  fetch(server + `/reservations/calender/?start=${start}&?end=${end}`, {
+export const fetchGetNumList = (start, end, setListFunc) => {
+  
+  fetch(server + `/reservations/calendar?start=${start}&end=${end}`, {
     mode: "cors",
   })
     .then((response) => {
-      const json = response.json();
-      console.log(json);
-      return json;
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw Error("ロード失敗");
+      }
     })
     .then((myJson) => {
-      console.log(myJson.code);
-      if (myJson.code != 200) {
-        console.log("ロード失敗");
-        ret = false;
-      } else {
-        ret = myJson.data.reservations;
-      }
+      console.log(myJson);
+      setListFunc(myJson.reservations);
+    })
+    .catch((e) => {
+      console.log(e);
     });
-
-  return ret;
 };
+
 
 export const fetchGetSummary = (munth) => {
   // return ?
