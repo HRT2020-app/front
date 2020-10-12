@@ -145,7 +145,7 @@ export default class ShowReservations extends React.Component {
         updateNameList.push(item.name);
       }
     });
-
+    
     this.setState({ selectedWeekList: selectedWeekList });
   }
 
@@ -244,7 +244,7 @@ export default class ShowReservations extends React.Component {
     let theday = new Date(beforedate); 
     theday.setUTCDate(beforedate.getUTCDate() + diffMonday);
 
-    let date = (theday.getMonth() + 1) + '/' + theday.getDate();
+    let date = (("00" + (theday.getMonth() + 1)).slice(-2)) + '/' + theday.getDate();
 
     if (date == this.state.today) {
       color = "red"
