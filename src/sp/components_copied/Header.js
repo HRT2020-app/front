@@ -1,5 +1,5 @@
 import React from 'react';
-import InputBox from './InputBox';
+import InputBox_SP from './InputBox';
 
 export default function Header(props) {
     const {title} = props;

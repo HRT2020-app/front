@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {BrowserRouter,Route,Link} from "react-router-dom";
 import {fetchGetList,fetchApply,fetchDelete,fetchGetNumList,fetchGetSummary} from "../apis/fetchData"
 // styleが動的じゃないから、pc/componetnt/をそのままコピー (20201008)
-import InputBox from './components_copied/InputBox';
-import Footer from './components_copied/Footer';
+import InputBox_SP from './components_copied/InputBox';
+import Footer_SP from './components_copied/Footer';
 import Header from './components_copied/Header';
 import ShowReservations_SP from './components_copied/ShowReservations_SP'
 
@@ -17,7 +17,7 @@ export default class SP extends Component {
 
   constructor(props) {
     super(props);
-    this.title = 'Nagao-Lab Schedule Manager (SPver)';
+    this.title = 'Nagao-Lab Schedule Manager';
   }
     
   // HTMLをどう描画するか
@@ -27,14 +27,14 @@ export default class SP extends Component {
           <div className="Header">
               <Header title={this.title} />
           </div>
-          <div className="InputBox">
-              <InputBox/>
+          <div className="InputBox_SP">
+              <InputBox_SP/>
           </div>
           <div>
               <ShowReservations_SP/>
           </div>
-          <div className="Footer">
-              <Footer/>
+          <div className="Footer_SP">
+              <Footer_SP/>
           </div>
       </div>
         );

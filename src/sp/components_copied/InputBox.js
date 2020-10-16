@@ -9,7 +9,7 @@ import Timepicker from "./TimePicker";
 
 registerLocale("ja", ja);
 
-export default class InputBox extends React.Component {
+export default class InputBox_SP extends React.Component {
   constructor(props) {
     super();
     const Today = new Date();
@@ -109,90 +109,79 @@ export default class InputBox extends React.Component {
 
   render() {
     return (
-      <div>
-        <form className="" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div>
-              <table class="table table-sm">
-                <tbody>
-                  <tr>
-                    <td className="align-middle deleteline">
-                      <label className="labelsize underline">name</label>
-                    </td>
-                    <td className="align-middle deleteline">
-                      <div className="input-element">
-                        <div>
-                          <input
-                            type="text"
-                            className="form-control inputsize"
-                            onChange={this.handleNameChange}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="align-middle deleteline">
-                      <label className="labelsize underline">date</label>
-                    </td>
-                    <td className="align-middle deleteline">
-                      <div className="input-element">
-                        <div className="input-element">
-                          <DatePicker
-                            dateFormat="yyyy/MM/dd"
-                            className="form-control inputsize"
-                            locale="ja"
-                            onChange={this.handleDateChange}
-                            value={this.state.date}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="align-middle deleteline">
-                      <label className="labelsize underline">in_room</label>
-                    </td>
-                    <td className="align-middle deleteline">
-                      <div className="input-element">
-                        <div className="input-element inputsize">
-                          <Timepicker
-                            handleInRoomChange={this.handleInRoomChange}
-                            inRoom={this.state.in_room}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="align-middle deleteline">
-                      <label className="labelsize underline">out_room</label>
-                    </td>
-                    <td className="align-middle deleteline">
-                      <div className="input-element form-group">
-                        <div className="input-element inputsize">
-                          <Timepicker
-                            handleOutRoomChange={this.handleOutRoomChange}
-                            outRoom={this.state.out_room}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="input-element boxsize button_wrapper">
-              <button
-                type="submit button"
-                className="form-control btn btn-circle btn-color"
-              >
-                Submit
-              </button>
-            </div>
+      <form className="" onSubmit={this.handleSubmit}>
+        <div className="row">
+          <div className="inputform" >
+            <table class="table table-sm">
+              <tbody>
+                <tr>
+                  <td className="deleteline">
+                    <label className="labelsize underline">name</label>
+                  </td>
+                  <td className="deleteline">
+                    <input
+                      type="text"
+                      className="form-control inputsize"
+                      onChange={this.handleNameChange}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td className="deleteline">
+                    <label className="labelsize underline">date</label>
+                  </td>
+                  <td className="deleteline">          
+                    <DatePicker
+                      dateFormat="yyyy/MM/dd"
+                      className="form-control inputsize"
+                      locale="ja"
+                      onChange={this.handleDateChange}
+                      value={this.state.date}
+                    />       
+                  </td>
+                </tr>
+                <tr>
+                  <td className="deleteline">
+                    <label className="labelsize underline">in_room</label>
+                  </td>
+                  <td className="deleteline">
+                    <div className="inputsize">
+                      <Timepicker
+                        handleInRoomChange={this.handleInRoomChange}
+                        inRoom={this.state.in_room}
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="deleteline">
+                    <label className="labelsize underline">out_room</label>
+                  </td>
+                  <td className="deleteline">
+
+                      <div className="inputsize">
+                      <Timepicker
+                        handleOutRoomChange={this.handleOutRoomChange}
+                        outRoom={this.state.out_room}
+                      />
+                    </div>
+                  
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </form>
-      </div>
+          <div className="boxsize button_wrapper_SP">
+            <button
+              type="submit button"
+              className="form-control btn btn-circle btn-color"
+            >
+              SUBMIT
+            </button>
+          </div>
+        </div>
+      </form>
+
     );
   }
 }
