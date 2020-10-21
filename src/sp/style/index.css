@@ -12,6 +12,7 @@
     margin: auto auto;
 }
 
+
 .Header{
     margin-top: 50px;
     text-align: left;
@@ -68,7 +69,8 @@ element.style {
     padding-right: 70px;
 }
 
-.row{
+
+.row_SP{
     display: block;
     width: auto;
 }
