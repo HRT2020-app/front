@@ -110,7 +110,7 @@ export default class InputBox_SP extends React.Component {
   render() {
     return (
       <form className="" onSubmit={this.handleSubmit}>
-        <div className="row">
+        <div className="row_SP">
           <div className="inputform" >
             <table class="table table-sm">
               <tbody>
