@@ -173,6 +173,7 @@ export default class ShowReservations extends React.Component {
 
     this.setState({ endmonth: afterendmonth });
     this.setState({ enddate: afterenddate });
+    this.setState({ selectedWeekList: [] });
 
     const startdaystr =
       afterstartinfo.getFullYear() +
@@ -210,6 +211,7 @@ export default class ShowReservations extends React.Component {
 
     this.setState({ endmonth: afterendmonth });
     this.setState({ enddate: afterenddate });
+    this.setState({ selectedWeekList: [] });
 
     const startdaystr =
       afterstartinfo.getFullYear() +
