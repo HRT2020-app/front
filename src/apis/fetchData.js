@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //const server = "http://localhost:3000";
-const server = `http://hrt-apps-rails.herokuapp.com`;
+const server = `https://hrt-apps-rails.herokuapp.com`;
 
 export const fetchGetList = (start, end, setListFunc) => {
   fetch(server + `/reservations?start=${start}&end=${end}`, {
